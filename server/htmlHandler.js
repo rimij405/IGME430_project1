@@ -9,8 +9,8 @@ const handler = require('./responseHandler.js');
 
 // Resources to return.
 const assets = {
-    index: undefined,
-    style: undefined
+  index: undefined,
+  style: undefined,
 };
 
 /**
@@ -19,8 +19,8 @@ const assets = {
  * @param {Response} res The response object returned by the HTTP server.
  */
 const getIndex = (req, res) => {
-    assets.index = assets.index || fs.readFile(`${__dirname}/../hosted/index.html`);
-    handler.respond(req, res, sc["200"], mt["html"], assets.index);
+  assets.index = assets.index || fs.readFileSync(`${__dirname}/../hosted/index.html`);
+  handler.respond(req, res, sc['200'], mt['html'], assets.index);
 };
 
 /**
@@ -29,14 +29,14 @@ const getIndex = (req, res) => {
  * @param {Response} res The response object returned by the HTTP server.
  */
 const getStyle = (req, res) => {
-    assets.style = assets.style || fs.readFile(`${__dirname}/../hosted/style.css`);
-    handler.respond(req, res, sc["200"], mt["css"], assets.style);
+  assets.style = assets.style || fs.readFileSync(`${__dirname}/../hosted/style.css`);
+  handler.respond(req, res, sc['200'], mt['css'], assets.style);
 };
 
 // Public exports of handler functions.
 module.exports = {
-    getIndex,
-    getStyle
+  getIndex,
+  getStyle
 };
 
 // License information.

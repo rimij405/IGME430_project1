@@ -1,7 +1,7 @@
 // JSONHandler.js
 // This file contains JSON responses.
 
-// Require statements.
+// Require statements. 
 const sc = require('./statusCodes.js');
 const mt = require('./mimeTypes.js');
 const data = require('./dataObjects.js');
@@ -17,8 +17,8 @@ const handler = require('./responseHandler.js');
  * @param {Object} object The JSON object to be stringified.
  */
 const respondJSON = (req, res, status, object) => {
-    const body = JSON.stringify(object);
-    handler.respond(req, res, status, mt["json"], body);
+  const body = JSON.stringify(object);
+  handler.respond(req, res, status, mt['json'], body);
 };
 
 /**
@@ -28,7 +28,7 @@ const respondJSON = (req, res, status, object) => {
  * @param {StatusCode} status The response's status code.
  */
 const respondJSONMeta = (req, res, status) => {
-    handler.respondMeta(req, res, status, mt["json"]);
+  handler.respondMeta(req, res, status, mt['json']);
 };
 
 /**
@@ -37,23 +37,23 @@ const respondJSONMeta = (req, res, status) => {
  * @param {Response} res The response object returned by the HTTP server.
  */
 const getNotFound = (req, res) => {
-    const message = 'The page you were looking for is not found.';
-    const id = 'Not Found';
-    const status = sc["404"];
+  const message = 'The page you were looking for is not found.';
+  const id = 'Not Found';
+  const status = sc['404'];
 
-    // Create the JSON object and return it.
-    const responseJSON = data.JSONObject(message, id);
-    responseJSON.status = status.code;
+  // Create the JSON object and return it.
+  const responseJSON = data.JSONObject(message, id);
+  responseJSON.status = status.code;
 
-    // Respond.
-    respondJSON(req, res, status, responseJSON);
+  // Respond.
+  respondJSON(req, res, status, responseJSON);
 };
 
 // Public exports of handler functions.
 module.exports = {
-    respondJSON,
-    respondJSONMeta,
-    getNotFound
+  respondJSON,
+  respondJSONMeta,
+  getNotFound,
 };
 
 // License information.

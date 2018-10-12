@@ -16,14 +16,18 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 // Key:value pairs indicating URL routes.
 const routes = {
-  POST: {},
-  GET: {
-    '/': responseHandler.getIndex,
-    '/index': responseHandler.getIndex,
-    '/style.css': responseHandler.getStyle
+  POST: {
+
   },
-  HEAD: {},
-  notFound: jsonHandler.getNotFound
+  GET: {
+    '/': htmlHandler.getIndex,
+    '/index': htmlHandler.getIndex,
+    '/style.css': htmlHandler.getStyle,
+  },
+  HEAD: {
+    
+  },
+  notFound: jsonHandler.getNotFound,
 };
 
 // Request call back functions.
@@ -43,6 +47,7 @@ const handlePost = (req, res, parsedURL, types) => {
 const handleGet = (req, res, parsedURL, types, params) => {
   // Check if the parsed name matches anything in our URL object.
   // Otherwise, call the default function.
+  console.dir(routes.GET);
   if (routes.GET[parsedURL.pathname]) {
     console.log(`Found GET route for "${parsedURL.pathname}".`);
     routes.GET[parsedURL.pathname](req, res, types, params);

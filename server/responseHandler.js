@@ -14,19 +14,19 @@ const sc = require('./statusCodes.js');
  * @param {String} body The content string or buffer to be written.
  */
 const respond = (req, res, status, type, body) => {
-    // Set the status code and content type.
-    res.writeHead(status.code, { 'Content-Type': type });
-  
-    // Write the content.
-    res.write(body);
-  
-    console.groupCollapsed('Respond method called.');
-    console.log(`Response status: ${status}. Response content type: ${type}`);
-    // console.log(`Response body: ${body}`);
-    console.groupEnd();
-  
-    // Send the response back.
-    res.end();
+  // Set the status code and content type.
+  res.writeHead(status.code, { 'Content-Type': type });
+
+  // Write the content.
+  res.write(body);
+
+  console.groupCollapsed('Respond method called.');
+  console.log(`Response status: ${status}. Response content type: ${type}`);
+  // console.log(`Response body: ${body}`);
+  console.groupEnd();
+
+  // Send the response back.
+  res.end();
 };
 
 /**
@@ -37,15 +37,15 @@ const respond = (req, res, status, type, body) => {
  * @param {String} type The content's MIME-type.
  */
 const respondMeta = (req, res, status, type) => {
-    // Set the status code and content type.
-    res.writeHead(status.code, { 'Content-Type': type });
+  // Set the status code and content type.
+  res.writeHead(status.code, { 'Content-Type': type });
 
-    console.groupCollapsed('Respond metadata method called.');
-    console.log(`Response status: ${status}. Response content type: ${type}`);
-    console.groupEnd();
+  console.groupCollapsed('Respond metadata method called.');
+  console.log(`Response status: ${status}. Response content type: ${type}`);
+  console.groupEnd();
 
-    // Send the response back.
-    res.end();
+  // Send the response back.
+  res.end();
 };
 
 /**
@@ -56,32 +56,31 @@ const respondMeta = (req, res, status, type) => {
  * @param {Callback} callback Function to call once post data is received.
  */
 const handlePost = (req, res, types, callback) => {
-    const body = [];
+  const body = [];
 
-    req.on('error', (err) => {
-        console.dir(err);
-        respondMeta(req, res, sc["400"], "text/html");
-    });
+  req.on('error', (err) => {
+    console.dir(err);
+    respondMeta(req, res, sc['400'], 'text/html');
+  });
 
-    req.on('data', (chunk) => {
-        body.push(chunk);
-    });
+  req.on('data', (chunk) => {
+    body.push(chunk);
+  });
 
-    req.on('end', () => {
-        const bodyString = Buffer.concat(body).toString();
-        const bodyParams = query.parse(bodyString);
-        if(callback) { callback(req, res, types, bodyParams); }
-    });
+  req.on('end', () => {
+    const bodyString = Buffer.concat(body).toString();
+    const bodyParams = query.parse(bodyString);
+    if (callback) { callback(req, res, types, bodyParams); }
+  });
 };
 
 // Public exports of handler functions.
 module.exports = {
-    status,
-    respond,
-    respondMeta,
-    handlePost
+  respond,
+  respondMeta,
+  handlePost
 };
-  
+
 // License information.
 /*
   Copyright 2018 Ian Effendi
